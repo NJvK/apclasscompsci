@@ -10,6 +10,10 @@ public class Birthday {
         System.out.println("Enter in the month you were born ");
         month = scan.nextDouble();
 
-        if (year > 2010)
+        if (year > 2008){
+            System.out.println("your old but you can vote");
+        } else if {
+            
+        }
     }
 }
