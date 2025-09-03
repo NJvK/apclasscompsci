@@ -15,12 +15,12 @@ public class Calculater {
 
     String[] buttonValues = { // string is just a list of diffrent buttons
         "AC", "+/-", "%", "÷", 
-        "7", "8", "9", "×", 
+        "7", "8", "9", "x", 
         "4", "5", "6", "-",
         "1", "2", "3", "+",
         "0", ".", "√", "="
     };
-    String[] rightSymbols = {"÷", "×", "-", "+", "="}; // sets spisific buttons right
+    String[] rightSymbols = {"÷", "x", "-", "+", "="}; // sets spisific buttons right
     String[] topSymbols = {"AC", "+/-", "%"}; // sets spisific buttons top
 
     JFrame frame = new JFrame("Calculater");// the text you will see at the thop of the window
@@ -56,18 +56,27 @@ public class Calculater {
             String buttonValue = buttonValues[i];
             button.setFont(new Font("Arial", Font.PLAIN, 30));
             button.setText(buttonValue);
+            button.setFocusable(false);
+            button.setBorder(new LineBorder(black));
             if (Arrays.asList(topSymbols).contains(buttonValue)){
                 button.setBackground(lightGrey);
                 button.setForeground(black);
             } else if (Arrays.asList(rightSymbols).contains(buttonValue)){
                 button.setBackground(Orange);
-                button.setForeground(Color.white);
+                button.setForeground(black);
             } else {
                 button.setBackground(darkGrey);
                 button.setForeground(Color.white);
             }
 
             buttonsPanel.add(button);
+
+            button.addActionListener(new ActionListener() {
+                public void actionPreformed(ActionEvent e){
+                    JButton button = (JButton) e.getSource();
+                    String buttonValue = button.getText();
+                }
+            })
         }
     }
 }
