@@ -75,8 +75,27 @@ public class Calculater {
                 public void actionPreformed(ActionEvent e){
                     JButton button = (JButton) e.getSource();
                     String buttonValue = button.getText();
+                    if (Arrays.asList(rightSymbols).contains(buttonValue)){
+
+                    } 
+                    else if (Arrays.asList(topSymbols).contains(buttonValue)){
+
+                    } 
+                    else { // digets or .
+                        if (buttonValue == "."){
+
+                        }
+                        else if ("0123456789".contains(buttonValue)) {
+                            if (displayLabel.getText() == "0"){
+                                displayLabel.setText(buttonValue);
+                            }
+                            else {
+                                displayLabel.setText(displayLabel.getText() + buttonValue);
+                            }
+                        }
+                    }
                 }
-            })
+            });
         }
     }
 }
