@@ -23,6 +23,8 @@ public class Runner {
         int randomIntBounded11 = random.nextInt(100);
         int randomIntBounded12 = random.nextInt(100);
         int randomIntBounded13 = random.nextInt(100);
+        int randomIntBounded14 = random.nextInt(100);
+        int randomIntBounded15 = random.nextInt(100);
         
         double answer1,answer2 ,answer3, answer4, answer5, answer6, answer7, answer8, answer9;
         int score = 0;
@@ -34,9 +36,9 @@ public class Runner {
         String qfour = ("What is the perimeter of a rectangle given the height " +randomIntBounded5 + " and with " + randomIntBounded6);
         String qfive = ("What is the area of a circle given the radius " +randomIntBounded7);
         String qseven = ("What is the cercumfrance of a cercle given the radius " +randomIntBounded8);
-        String qsix = ("What is the area of a square given the base " +randomIntBounded9 + " and height " + randomIntBounded10);
+        String qsix = ("What is the area of a triangle given the base " +randomIntBounded9 + " and height " + randomIntBounded10);
         String qnine = ("What is the area of a triangle given a " +randomIntBounded11 + " b " + randomIntBounded12 + " the angle of c " + randomIntBounded13);
-        // String qnine = ("What is the area of a square given the side " +randomIntBounded11);
+        // String qnine = ("Find the average between the two given numbers " + randomIntBounded14 + randomIntBounded15);
     
                 
         if (choice == 1){
@@ -94,6 +96,16 @@ public class Runner {
                     System.out.println("Incorrect the correct answer is " + Math.round(((Math.PI * randomIntBounded8 * 2)* 100.0) / 100.0));
                     System.out.println("Your score is " + score);
                 }
+                // question 6 hard area of a triangle given a b and angle c
+                System.out.println(qnine);
+                answer9 = scan.nextDouble();
+                if (answer9 == Math.round(((0.5 * randomIntBounded11 * randomIntBounded12 * Math.sin(randomIntBounded13))* 100.0) / 100.0)){
+                    System.out.println("Correct!");
+                    score += 1;
+                } else {
+                    System.out.println("Incorrect the correct answer is " + Math.round(((0.5 * randomIntBounded11 * randomIntBounded12 * Math.sin(randomIntBounded13))* 100.0) / 100.0));
+                    System.out.println("Your score is " + score);
+                }
             } else {
             // question 4 easy perimiter of a rectangle
             System.out.println(qfour);
@@ -105,15 +117,25 @@ public class Runner {
             } else {
                 System.out.println("Incorrect the correct answer is " + (randomIntBounded5 * 2 + randomIntBounded6 * 2));
             }
-            // question 5 easy
+            // question 5 easy area of a triangle given base and hight
             System.out.println(qsix);
             answer6 = scan.nextDouble();
-            if (answer4 == (randomIntBounded5 * 2 + randomIntBounded6 * 2)){
+            if (answer6 == (randomIntBounded9 * randomIntBounded10 / 2.0)){
                 System.out.println("Correct!");
                 score += 1;
                 System.out.println("Your score is " + score);
             } else {
-                System.out.println("Incorrect the correct answer is " + (randomIntBounded5 * 2 + randomIntBounded6 * 2));
+                System.out.println("Incorrect the correct answer is " + (randomIntBounded9 * randomIntBounded10 / 2.0));
+            }
+            // question 6 easy find the averagle of the two given numbers
+            System.out.println(qsix);
+            answer8 = scan.nextDouble();
+            if (answer8 == (randomIntBounded15 + randomIntBounded14 / 2.0)){
+                System.out.println("Correct!");
+                score += 1;
+                System.out.println("Your score is " + score);
+            } else {
+                System.out.println("Incorrect the correct answer is " + (randomIntBounded15 + randomIntBounded14 / 2.0));
             }
             }
         } else if (choice == 2){
