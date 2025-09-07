@@ -44,16 +44,16 @@ public class Runner {
         String qnine = ("What is the area of a triangle given a " +randomIntBounded11 + " b " + randomIntBounded12 + " the angle of c " + randomIntBounded13);
         String qeight = ("Find the average between the two given numbers " + randomIntBounded14 + randomIntBounded15);
         
-        // questions for math easy and hard
-        String qOne = ("What is the Capital of France 1. paris 2. rome 3. venis");
-        String qTwo = ("What is the worlds smallest country 1. andorra 2. vadican city 3. san morino");
-        String qThree = ("What is the perimeter of a square given the side " +randomIntBounded4);
-        String qFour = ("What is the perimeter of a rectangle given the height " +randomIntBounded5 + " and with " + randomIntBounded6);
-        String qSix = ("What is the area of a circle given the radius " +randomIntBounded7);
-        String qEight = ("What is the cercumfrance of a cercle given the radius " +randomIntBounded8);
-        String qFive = ("What is the area of a triangle given the base " +randomIntBounded9 + " and height " + randomIntBounded10);
-        String qSeven = ("What is the area of a triangle given a " +randomIntBounded11 + " b " + randomIntBounded12 + " the angle of c " + randomIntBounded13);
-        String qNine = ("Find the average between the two given numbers " + randomIntBounded14 + randomIntBounded15);
+        // questions for geography easy = even and hard = odd
+        String qOne = ("What is the Capital of France? 1. paris 2. rome 3. venis");
+        String qTwo = ("What is the worlds smallest country? 1. andorra 2. vadican city 3. san morino");
+        String qThree = ("What country is famous for its pyramids and the Sphinx? 1. Brazil 2. Oman 3. Egypt");
+        String qFour = ("What is the largest country in South America by area? 1. Brazil 2. Chile 3. Argentina");
+        String qSix = ("What country is both a continent and a country? 1. Austrilia 2. Philipines 3. Soloman Islands");
+        String qEight = ("In what country would you find the Eiffel Tower and the Louvre Museum? 1. Spain 2. France");
+        String qFive = ("What is the only country in the world that lies on the equator and has no coastline? 1. Democratic Republic of the Congo 2. Brakina Faso 3. Uganda");
+        String qSeven = ("Which two sovereign nations have coastlines on the Caspian Sea but do not share a land border? 1. Iran and Iraq 2. Iraq and Kazakhstan 3. Iran and Kazakhstan");
+        String qNine = ("What country is the only one in the world that has a non-quadrilateral flag? 1. Moneco 2. Nepal 3. Quetar");
                 
         if (choice == 1){
             // question 1 area of a rectangle
@@ -185,6 +185,88 @@ public class Runner {
             } else {
                 System.out.println("Incorrect the correct answer is 2. vadican city");
                 System.out.println("Your current score is " + score);
+            }
+            // question three What country is famous for its pyramids and the Sphinx?
+            System.out.println(qThree);
+            GeographyAnswer3 = scan.nextInt();
+            if (GeographyAnswer3 == 3){
+                System.out.println("Correct");
+                score += 1;
+                System.out.println("Your current score is " + score);
+            } else {
+                System.out.println("Incorrect the correct answer is 3. Egypt");
+                System.out.println("Your current score is " + score);
+            }
+            if (score == 3){
+                // Hard questions
+                // question 4 hard What is the only country in the world that lies on the equator and has no coastline?
+                System.out.println(qFive);
+            GeographyAnswer5 = scan.nextInt();
+            if (GeographyAnswer5 == 3){
+                System.out.println("Correct");
+                score += 1;
+                System.out.println("Your current score is " + score);
+            } else {
+                System.out.println("Incorrect the correct answer is 3. Uganda");
+                System.out.println("Your current score is " + score);
+            }
+            // question 5 hard What is the only country in the world that lies on the equator and has no coastline?
+            System.out.println(qSeven);
+            GeographyAnswer7 = scan.nextInt();
+            if (GeographyAnswer7 == 3){
+                System.out.println("Correct");
+                score += 1;
+                System.out.println("Your current score is " + score);
+            } else {
+                System.out.println("Incorrect the correct answer is 3. Iran and Kazakhstan");
+                System.out.println("Your current score is " + score);
+            }
+            // question 6 hard What is the only country in the world that lies on the equator and has no coastline?
+            System.out.println(qNine);
+            GeographyAnswer9 = scan.nextInt();
+            if (GeographyAnswer9 == 2){
+                System.out.println("Correct");
+                score += 1;
+                System.out.println("Your current score is " + score);
+            } else {
+                System.out.println("Incorrect the correct answer is 2. Nepal");
+                System.out.println("Your current score is " + score);
+            }
+            } else {
+                // Easy questions
+                // question 4 easy What is the largest country in South America by area?
+                System.out.println(qFour);
+                GeographyAnswer4 = scan.nextInt();
+                if (GeographyAnswer4 == 1){
+                    System.out.println("Correct");
+                    score += 1;
+                    System.out.println("Your current score is " + score);
+                } else {
+                    System.out.println("Incorrect the correct answer is 1. Brazil");
+                    System.out.println("Your current score is " + score);
+                }
+                // question 5 easy What country is both a continent and a country?
+                System.out.println(qSix);
+                GeographyAnswer6 = scan.nextInt();
+                if (GeographyAnswer6 == 1){
+                    System.out.println("Correct");
+                    score += 1;
+                    System.out.println("Your current score is " + score);
+                } else {
+                    System.out.println("Incorrect the correct answer is 1. Austilia");
+                    System.out.println("Your current score is " + score);
+                }
+                // question 6 easy In what country would you find the Eiffel Tower and the Louvre Museum?
+                System.out.println(qEight);
+                GeographyAnswer8 = scan.nextInt();
+                if (GeographyAnswer8 == 2){
+                    System.out.println("Correct");
+                    score += 1;
+                    System.out.println("Your current score is " + score);
+                } else {
+                    System.out.println("Incorrect the correct answer is 2. France");
+                    System.out.println("Your current score is " + score);
+                }
             }
             // ---------------------------------------------
             // final grade
