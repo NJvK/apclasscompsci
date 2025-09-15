@@ -1,3 +1,4 @@
+import java.lang.Math;
 public class Radius {
     private double pi = 0;
     public void setVariable() {
