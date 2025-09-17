@@ -7,8 +7,10 @@ public class Circle {
         area = Math.PI * radius * radius;
         System.out.println("Area of Circle: " + area);
     }
-    public void setRadius(double r) {
+    public Circle (double r) {
         radius = r;
+        area = Math.PI * radius * radius;
+        System.out.println("Area of Circle: " + area);
     }
     public void printVariables() {
         System.out.println("Radius: " + radius);

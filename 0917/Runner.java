@@ -2,26 +2,26 @@ import java.util.Scanner;
 public class Runner {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        Circle circle = new Circle();
-        Rectangle rectangle = new Rectangle();
-        Triangle triangle = new Triangle();
-        Square Square = new Square();
+        Circle circle1 = new Circle();
+        Rectangle rectangle1 = new Rectangle();
+        Triangle triangle1 = new Triangle();
+        Square square1 = new Square();
 
-        Square.setDimensions(4.0);
-        Square.printVariables();
-        Square.area();
+        Square square2 = new Square(4.0);
+        square2.printVariables();
+        square2.area();
 
-        rectangle.setDimensions(5.0, 3.0);
-        rectangle.printVariables();
-        rectangle.area();
+        Rectangle rectangle2 = new Rectangle(5.0, 3.0);
+        rectangle2.printVariables();
+        rectangle2.area();
 
-        triangle.setDimensions(5.0, 3.0);
-        triangle.printVariables();
-        triangle.area();
+        Triangle triangle2 = new Triangle(5.0, 3.0);
+        triangle2.printVariables();
+        triangle2.area();
 
-        circle.setRadius(4.0);
-        circle.printVariables();
-        circle.area();
+        Circle circle2 = new Circle(4.0);
+        circle2.printVariables();
+        circle2.area();
 
         System.out.println("Choose a shape to calculate the area: ");
         System.out.println("1. Circle");
@@ -33,27 +33,27 @@ public class Runner {
         if (choice == 1){
             System.out.print("Enter the radius of the circle: ");
             double radius = scan.nextDouble();
-            circle.setRadius(radius);
-            circle.area();
+            Circle circle3 = new Circle(radius);
+            circle3.area();
         } else if (choice == 2){
             System.out.print("Enter the length of the rectangle: ");
             double length = scan.nextDouble();
             System.out.print("Enter the width of the rectangle: ");
             double width = scan.nextDouble();
-            rectangle.setDimensions(length, width);
-            rectangle.area();
+            Rectangle rectangle3 = new Rectangle(length, width);
+            rectangle3.area();
         } else if (choice == 3){
             System.out.print("Enter the base of the triangle: ");
             double base = scan.nextDouble();
             System.out.print("Enter the height of the triangle: ");
             double height = scan.nextDouble();
-            triangle.setDimensions(base, height);
-            triangle.area();
+            Triangle triangle3 = new Triangle(base, height);
+            triangle3.area();
         } else if (choice == 4){
             System.out.print("Enter the side length of the square: ");
             double side = scan.nextDouble();
-            Square.setDimensions(side);
-            Square.area();
+            Square square3 = new Square(side);
+            square3.area();
         } else {
             System.out.println("Invalid choice");
         }

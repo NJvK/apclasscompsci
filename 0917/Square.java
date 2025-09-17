@@ -5,8 +5,8 @@ public class Square {
         area = sideLength * sideLength;
         System.out.println("Area of Square: " + area);
     }
-    public void setDimensions(double side) {
-        sideLength = side;
+    public Square (double s) {
+        sideLength = s;
     }
     public void printVariables() {
         System.out.println("Side Length: " + sideLength);

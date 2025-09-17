@@ -6,9 +6,9 @@ public class Rectangle {
         area = length * width;
         System.out.println("Area of Rectangle: " + area);
     }
-    public void setDimensions(double len, double wid) {
-        length = len;
-        width = wid;
+    public Rectangle (double l, double w) {
+        length = l;
+        width = w;
     }
     public double area() {
         area =length * width;

@@ -6,7 +6,7 @@ public class Triangle {
         area = 0.5 * base * height;
         System.out.println("Area of Triangle: " + area);
     }
-    public void setDimensions(double b, double h) {
+    public Triangle (double b, double h) {
         base = b;
         height = h;
     }
