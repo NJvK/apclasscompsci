@@ -1,9 +1,15 @@
 public class BirdInfo {
     private String name = "Tweety";
-    private Bird bird = new Bird();
     public void info() {
-        bird.Speak();
-        bird.DrawMe();
         System.out.println(name);
+    }
+    public void Speak() {
+        System.out.println("Chirp Chirp");
+    }
+    public void DrawMe() {
+        System.out.println("  __\n" +
+                           " (o )\\_______\n" +
+                           "  ( ._> /     )\n" +
+                           "   `---'----'");
     }
 }
