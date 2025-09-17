@@ -1,10 +1,10 @@
 public class Triangle {
-    private double base = 0.0;
-    private double height = 0.0;
+    private double base;
+    private double height;
     private double area;
     public Triangle() {
-        area = 0.5 * base * height;
-        System.out.println("Area of Triangle: " + area);
+        base = 0.0;
+        height = 0.0;
     }
     public Triangle (double b, double h) {
         base = b;
