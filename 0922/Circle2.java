@@ -10,20 +10,20 @@ public class Circle2 {
         this.radius = radius;
         pi = Math.PI;
     }
-    public void printArea1(){
+    public void printArea(){
         double area = Math.pow(radius, 2) * pi;
         System.out.println("Area of Circle: " + area);
     }
-    public void printArea2(double radius){
+    public void printArea(double radius){
         double area = Math.pow(radius, 2) * pi;
         System.out.println("Area of Circle: " + area);  
     }
-    public void printVol1(double radius){
+    public void printVol(double radius){
         this.radius = radius;
         double vol = 4/3 * Math.pow(radius,3) * pi;
         System.out.println("Volume of Sphear: " + vol);
     }
-    public void printVol2(double radius, double height){
+    public void printVol(double radius, double height){
         double vol = Math.pow(radius,2) * pi * height;
         System.out.println("Volume of Cylinder: " + vol);
     }
