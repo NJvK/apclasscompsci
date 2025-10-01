@@ -6,7 +6,7 @@ public class CircleRunner {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter radius: ");
         int radius = scanner.nextInt();
-        circleRunner.circle.Circumference(radius);
-        circleRunner.circle.Area(radius);
+        circleRunner.circle.circumference(radius);
+        circleRunner.circle.area(radius);
     }   
 }

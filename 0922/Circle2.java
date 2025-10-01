@@ -1,3 +1,4 @@
+import java.lang.Math;
 public class Circle2 {
     private double radius;
     private double pi;
