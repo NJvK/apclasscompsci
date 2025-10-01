@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class MyMath {
-    Scanner scanner = new Scanner(System.in);
-    int num;
+    private Scanner scanner = new Scanner(System.in);
+    private int num;
     public void EvenOrOdd() {
         System.out.print("Enter an integer: ");
         this.num = scanner.nextInt();
