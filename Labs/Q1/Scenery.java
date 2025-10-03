@@ -1,4 +1,4 @@
-package Labs.Q1;
+package Q1;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;

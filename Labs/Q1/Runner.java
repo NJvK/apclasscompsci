@@ -1,4 +1,4 @@
-package Labs.Q1;
+package Q1;
 import javax.swing.JFrame;
 import java.util.Scanner;
 public class Runner {
