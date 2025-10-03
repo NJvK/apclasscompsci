@@ -3,7 +3,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
-public class Scenery extends JPanel{
+public class Scenery2 extends JPanel{
     int choice;
 
     @Override
@@ -14,7 +14,7 @@ public class Scenery extends JPanel{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         drawSky(g);
-        drawClearSky(g);
+        drawMoon(g);
         drawWall(g,0,200);
         drawPeople(g,400,400);
         drawPeople(g,350,400);
@@ -24,13 +24,6 @@ public class Scenery extends JPanel{
         drawPeople(g,150,400);
         drawPeople(g,100,400);
         drawPeople(g,50,400);
-        drawPeople(g, 425, 325);
-        drawPeople(g, 375, 325);
-        drawPeople(g, 325, 325);
-        drawPeople(g, 275, 325);
-        drawPeople(g, 225, 325);
-        drawPeople(g, 175, 325);
-        drawPeople(g, 125, 325);
     }
     // See if this code is useful later
     // private void drawBuilding(Graphics g, int x, int y){
@@ -76,54 +69,12 @@ public class Scenery extends JPanel{
     }
     // ------------Sky & Sun----------------------
     private void drawSky(Graphics g){
-        g.setColor(Color.CYAN);
+        g.setColor(Color.DARK_GRAY);
         g.fillRect(0,0,500,500);
     }
-    private void drawSun(Graphics g){
-        g.setColor(Color.YELLOW);
+    private void drawMoon(Graphics g){
+        g.setColor(Color.WHITE);
         g.fillOval(380,0,100,100);
         g.drawOval(380,0,100,100);
     }
-    private void drawGround(Graphics g){
-        g.setColor(Color.GREEN);
-        g.fillRect(0,200,500,300);
-    }
-    private void drawClearSky(Graphics g){
-        drawSun(g);
-        drawGround(g);
-    }
-    // private void drawCloud(Graphics g, int x, int y){
-    //     g.setColor(Color.WHITE);
-    //     g.fillOval(x,y,50,50);
-    //     g.fillOval(x+25,y-25,50,50);
-    //     g.fillOval(x+50,y,50,50);
-    //     g.fillOval(x+25,y+10,50,50);
-    // }
-    // private void drawRain(Graphics g, int x, int y){
-    //     g.setColor(Color.BLUE);
-    //     g.drawLine(x,y,x-10,y+25);
-    //     g.drawLine(x+10,y,x,y+25);
-    //     g.drawLine(x+20,y,x+10,y+25);
-    //     g.drawLine(x+30,y,x+20,y+25);
-    //     g.drawLine(x+40,y,x+30,y+25);
-    // }
-    // private void drawRainCloud(Graphics g, int x, int y){
-    //     drawCloud(g,x,y);
-    //     for(int i=0; i<5; i++){
-    //         drawRain(g,x+10*i+10,y+25);
-    //     }
-    //     drawGround(g);
-    // }
-    // private void drawCloudySky(Graphics g){
-    //     drawCloud(g,50,50);
-    //     drawCloud(g,200,100);
-    //     drawCloud(g,350,50);
-    //     drawGround(g);
-    // }
-    // private void drawRainySky(Graphics g){
-    //     drawRainCloud(g,50,50);
-    //     drawRainCloud(g,200,100);
-    //     drawRainCloud(g,350,50);
-    //     drawGround(g);
-    // }
 }

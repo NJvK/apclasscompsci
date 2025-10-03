@@ -3,7 +3,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
-public class Scenery extends JPanel{
+public class Sceneryy extends JPanel{
     int choice;
 
     @Override
@@ -14,7 +14,7 @@ public class Scenery extends JPanel{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         drawSky(g);
-        drawClearSky(g);
+        drawCloudySky(g);
         drawWall(g,0,200);
         drawPeople(g,400,400);
         drawPeople(g,350,400);
@@ -88,17 +88,17 @@ public class Scenery extends JPanel{
         g.setColor(Color.GREEN);
         g.fillRect(0,200,500,300);
     }
-    private void drawClearSky(Graphics g){
-        drawSun(g);
-        drawGround(g);
-    }
-    // private void drawCloud(Graphics g, int x, int y){
-    //     g.setColor(Color.WHITE);
-    //     g.fillOval(x,y,50,50);
-    //     g.fillOval(x+25,y-25,50,50);
-    //     g.fillOval(x+50,y,50,50);
-    //     g.fillOval(x+25,y+10,50,50);
+    // private void drawClearSky(Graphics g){
+    //     drawSun(g);
+    //     drawGround(g);
     // }
+    private void drawCloud(Graphics g, int x, int y){
+        g.setColor(Color.WHITE);
+        g.fillOval(x,y,50,50);
+        g.fillOval(x+25,y-25,50,50);
+        g.fillOval(x+50,y,50,50);
+        g.fillOval(x+25,y+10,50,50);
+    }
     // private void drawRain(Graphics g, int x, int y){
     //     g.setColor(Color.BLUE);
     //     g.drawLine(x,y,x-10,y+25);
@@ -114,12 +114,13 @@ public class Scenery extends JPanel{
     //     }
     //     drawGround(g);
     // }
-    // private void drawCloudySky(Graphics g){
-    //     drawCloud(g,50,50);
-    //     drawCloud(g,200,100);
-    //     drawCloud(g,350,50);
-    //     drawGround(g);
-    // }
+    private void drawCloudySky(Graphics g){
+        drawCloud(g,50,50);
+        drawCloud(g,200,100);
+        drawCloud(g,350,50);
+        drawGround(g);
+        drawSun(g);
+    }
     // private void drawRainySky(Graphics g){
     //     drawRainCloud(g,50,50);
     //     drawRainCloud(g,200,100);
