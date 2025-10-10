@@ -51,7 +51,6 @@ public class MathMenuRunner {
             default:
                 System.out.println("Invalid choice. Please enter a number between 1 and 5.");
         }
-
         scanner.close();
     }
 }
