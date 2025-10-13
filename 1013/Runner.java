@@ -5,7 +5,7 @@ public class Runner {
         Bank bank = new Bank("Natalie", 1000);
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter your selection (1-5):");
+        System.out.println("Enter your selection (1-5): \n1. Print Name \n2. Print Balance \n3. Deposit \n4. Withdraw \n5. Exit");
 
         while (true) {
             int selection = scanner.nextInt();
@@ -29,6 +29,6 @@ public class Runner {
                 System.out.println("Invalid selection. Please try again.");
             }
         }
-        scanner.close(); // It's good practice to close the scanner
+        scanner.close();
     }
 }

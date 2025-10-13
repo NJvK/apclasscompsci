@@ -1,30 +1,38 @@
-public class Bank{
+class Bank {
     private String name;
     private double balance;
-    public Bank(String name, double balance){
-  	    name = this.name;
-        balance = this.getBalance();
+
+    public Bank(String name, double balance) {
+        this.name = name;
+        this.balance = balance;
     }
-    public String getName(){
-  	    return name;
+
+    public void printName() {
+        System.out.println("Account holder: " + name);
     }
-    public double getBalance(){
-        return balance;
+
+    public void printBalance() {
+        System.out.println("Current balance: $" + balance);
     }
-    public void withdraw(double amount){
-        if (amount < 0){
-            deposit(amount);
+
+    // Corrected method signatures to accept a parameter for the transaction amount
+    public void deposit(double amount) {
+        if (amount > 0) {
+            this.balance += amount;
+            System.out.println("Deposited $" + amount);
         } else {
-            balance -= amount;
-        System.out.println("Your account total is: $" + balance);
+            System.out.println("Deposit amount must be positive.");
         }
     }
-    public void deposit(double amount){
-        if (amount < 0){
-            withdraw(amount);
+
+    public void withdraw(double amount) {
+        if (amount > 0 && this.balance >= amount) {
+            this.balance -= amount;
+            System.out.println("Withdrew $" + amount);
+        } else if (amount <= 0) {
+            System.out.println("Withdrawal amount must be positive.");
         } else {
-            balance += amount;
-        System.out.println("Your account total is: $" + balance);
+            System.out.println("Insufficient funds.");
         }
     }
 }
