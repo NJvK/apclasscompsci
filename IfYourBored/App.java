@@ -1,9 +1,11 @@
 package IfYourBored;
 
-public class App {
-    public static void main(String[] args) throws Exception{
-        Calculater Calculater = new Calculater();
-        
+import javax.swing.*;
+
+public class CalculaterRunner {
+    public static void main(String[] args) throws Exception {
+        // Use a LAF that respects button background colors
+        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        SwingUtilities.invokeLater(Calculater::new);
     }
-    
 }
