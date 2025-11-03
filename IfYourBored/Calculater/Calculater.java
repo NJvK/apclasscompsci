@@ -1,5 +1,3 @@
-package IfYourBored;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
@@ -48,15 +46,6 @@ public class Calculater {
         displayLabel.setText("0");
         displayLabel.setOpaque(true);
 
-        JButton button = new JButton(label);
-        button.setOpaque(true);
-        button.setContentAreaFilled(true);
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setBackground(yourColor);
-        button.setForeground(yourTextColor);
-
-
         displayPanel.setLayout(new BorderLayout());
         displayPanel.add(displayLabel, BorderLayout.CENTER);
         frame.add(displayPanel, BorderLayout.NORTH);
@@ -70,6 +59,10 @@ public class Calculater {
             button.setFont(new Font("Arial", Font.PLAIN, 28));
             button.setFocusable(false);
             button.setBorder(new LineBorder(black));
+            button.setOpaque(true);
+            button.setContentAreaFilled(true);
+            button.setBorderPainted(false);
+            button.setFocusPainted(false);
 
             if (Arrays.asList(topSymbols).contains(buttonValue)) {
                 button.setBackground(lightGrey);
