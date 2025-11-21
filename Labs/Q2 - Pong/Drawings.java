@@ -1,3 +1,6 @@
+import java.awt.Graphics;
+import java.awt.Color;
+
 // isla does all of this
 // all methods are public
 public class Drawings {
