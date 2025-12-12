@@ -5,7 +5,7 @@ import javax.swing.*;
 public class Game extends JPanel implements KeyListener, ActionListener {
 
     private Drawings d = new Drawings();
-    private Backgrounds bg = new Backgrounds(); // your background class
+    private Backgrounds bg = new Backgrounds();
 
     private Timer timer;
 
@@ -18,36 +18,39 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     private int p1Score = 0;
     private int p2Score = 0;
 
-    // player positions
     private int p1x = 350;
     private final int p1y = 520;
 
     private int p2x = 350;
     private final int p2y = 80;
 
-    // movement flags for continuous movement
     private boolean p1Left, p1Right;
     private boolean p2Left, p2Right;
 
-    private final int playerSpeed = 10;
+    private final int playerSpeed = 12;
 
-    // bullets
     private int p1bx = -100;
     private int p1by = -100;
     private int p2bx = -100;
     private int p2by = -100;
 
-    private final int bulletSpeed = 15;
+    private final int bulletSpeed = 18;
 
-    // asteroids
-    private static final int NUM_ASTEROIDS = 5;
-    private int[] downAx = new int[NUM_ASTEROIDS];
-    private int[] downAy = new int[NUM_ASTEROIDS];
-    private int[] upAx = new int[NUM_ASTEROIDS];
-    private int[] upAy = new int[NUM_ASTEROIDS];
+    private static final int MAX_ASTEROIDS = 5;
+    private int[] downAx = new int[MAX_ASTEROIDS];
+    private int[] downAy = new int[MAX_ASTEROIDS];
+    private int[] upAx = new int[MAX_ASTEROIDS];
+    private int[] upAy = new int[MAX_ASTEROIDS];
 
-    private final int downSpeed = 4;
-    private final int upSpeed = 4;
+    private final int downSpeed = 5;
+    private final int upSpeed = 5;
+
+    // LEVEL SYSTEM
+    private int level = 1;
+    private long levelStartTime = System.currentTimeMillis();
+    private boolean showingLevelText = true;
+    private long levelTextStartTime = System.currentTimeMillis();
+    private int activeAsteroids = 2; // Level 1 starts with 2
 
     private JButton startButton;
 
@@ -63,7 +66,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         startButton.addActionListener(e -> {
             startScreen = false;
             remove(startButton);
-            repaint();
+            showingLevelText = true;
+            levelTextStartTime = System.currentTimeMillis();
         });
         add(startButton);
 
@@ -72,12 +76,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
 
     private void initAsteroids() {
-        for (int i = 0; i < NUM_ASTEROIDS; i++) {
-            downAx[i] = (int) (Math.random() * 730);
-            downAy[i] = -70 - (int) (Math.random() * 400);
+        for (int i = 0; i < MAX_ASTEROIDS; i++) {
+            downAx[i] = (int)(Math.random() * 730);
+            downAy[i] = -70 - (int)(Math.random() * 400);
 
-            upAx[i] = (int) (Math.random() * 730);
-            upAy[i] = 600 + (int) (Math.random() * 400);
+            upAx[i] = (int)(Math.random() * 730);
+            upAy[i] = 600 + (int)(Math.random() * 400);
         }
     }
 
@@ -93,41 +97,37 @@ public class Game extends JPanel implements KeyListener, ActionListener {
             startButton.setVisible(false);
         }
 
+        if (showingLevelText) {
+            g.setColor(Color.white);
+            g.setFont(new Font("Arial", Font.BOLD, 32));
+            g.drawString("Level " + level, 330, 300);
+            return;
+        }
+
         if (gameOver) {
             if (winner == 1) d.endScreen1(g);
             else d.endScreen2(g);
             return;
         }
 
-        bg.drawBackground1(g);
+        drawLevelBackground(g);
 
-        drawPlayers(g);
-        drawBullets(g);
-        drawAsteroids(g);
+        d.player1(g, p1x, p1y);
+        d.player2(g, p2x, p2y);
+
+        if (p1by > -20 && p1by < 620) d.p1bullet(g, p1bx, p1by);
+        if (p2by > -20 && p2by < 620) d.p2bullet(g, p2bx, p2by);
+
+        for (int i = 0; i < activeAsteroids; i++) d.asteroid(g, downAx[i], downAy[i]);
+        for (int i = 0; i < activeAsteroids; i++) d.asteroid(g, upAx[i], upAy[i]);
+
         drawHUD(g);
     }
 
-    private void drawPlayers(Graphics g) {
-        d.player1(g, p1x, p1y);
-        d.player2(g, p2x, p2y);
-    }
-
-    private void drawBullets(Graphics g) {
-        if (p1by > -20 && p1by < 620) {
-            d.p1bullet(g, p1bx, p1by);
-        }
-        if (p2by > -20 && p2by < 620) {
-            d.p2bullet(g, p2bx, p2by);
-        }
-    }
-
-    private void drawAsteroids(Graphics g) {
-        for (int i = 0; i < NUM_ASTEROIDS; i++) {
-            d.asteroid(g, downAx[i], downAy[i]);
-        }
-        for (int i = 0; i < NUM_ASTEROIDS; i++) {
-            d.asteroid(g, upAx[i], upAy[i]);
-        }
+    private void drawLevelBackground(Graphics g) {
+        if (level == 1) bg.drawBackground1(g);
+        else if (level == 2) bg.drawBackground2(g);
+        else bg.drawBackground3(g);
     }
 
     private void drawHUD(Graphics g) {
@@ -138,12 +138,53 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!startScreen && !gameOver) {
-            updatePlayers();
-            updateBullets();
-            updateAsteroids();
-            checkCollisions();
+        if (startScreen || gameOver) {
+            repaint();
+            return;
         }
+
+        if (showingLevelText) {
+            if (System.currentTimeMillis() - levelTextStartTime >= 2000) {
+                showingLevelText = false;
+                levelStartTime = System.currentTimeMillis();
+            }
+            repaint();
+            return;
+        }
+
+        long elapsed = System.currentTimeMillis() - levelStartTime;
+        if (elapsed >= 20000) {
+            level++;
+            if (level > 3) level = 3;
+
+            // If level 3 just finished, end game based on score
+            if (level == 3 && elapsed >= 10000) {
+                if (p1Score > p2Score) winner = 1;
+                else if (p2Score > p1Score) winner = 2;
+                else winner = 1; // ties default to Player 1 or choose your logic
+
+                gameOver = true;
+                repaint();
+                return;
+            }
+
+
+            switch (level) {
+                case 1: activeAsteroids = 2; break;
+                case 2: activeAsteroids = 3; break;
+                case 3: activeAsteroids = 5; break;
+            }
+
+            showingLevelText = true;
+            levelTextStartTime = System.currentTimeMillis();
+            initAsteroids();
+        }
+
+        updatePlayers();
+        updateBullets();
+        updateAsteroids();
+        checkCollisions();
+
         repaint();
     }
 
@@ -153,7 +194,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         if (p2Left) p2x -= playerSpeed;
         if (p2Right) p2x += playerSpeed;
 
-        // keep players on screen
         if (p1x < 40) p1x = 40;
         if (p1x > 760) p1x = 760;
         if (p2x < 40) p2x = 40;
@@ -161,68 +201,60 @@ public class Game extends JPanel implements KeyListener, ActionListener {
     }
 
     private void updateBullets() {
-        if (p1by > -30) {
-            p1by -= bulletSpeed;
-        }
-        if (p2by < 630) {
-            p2by += bulletSpeed;
-        }
+        if (p1by > -30) p1by -= bulletSpeed;
+        if (p2by < 630) p2by += bulletSpeed;
     }
 
     private void updateAsteroids() {
-        for (int i = 0; i < NUM_ASTEROIDS; i++) {
+        for (int i = 0; i < activeAsteroids; i++) {
             downAy[i] += downSpeed;
             if (downAy[i] > 620) {
-                downAy[i] = -70 - (int) (Math.random() * 300);
-                downAx[i] = (int) (Math.random() * 730);
+                downAy[i] = -70 - (int)(Math.random() * 300);
+                downAx[i] = (int)(Math.random() * 730);
             }
 
             upAy[i] -= upSpeed;
             if (upAy[i] < -80) {
-                upAy[i] = 600 + (int) (Math.random() * 300);
-                upAx[i] = (int) (Math.random() * 730);
+                upAy[i] = 600 + (int)(Math.random() * 300);
+                upAx[i] = (int)(Math.random() * 730);
             }
         }
     }
 
     private void checkCollisions() {
-        // P1 bullet vs down asteroids
-        for (int i = 0; i < NUM_ASTEROIDS; i++) {
-            if (bulletHitsAsteroid(p1bx, p1by, downAx[i], downAy[i])) {
+        for (int i = 0; i < activeAsteroids; i++) {
+            if (hitAsteroid(p1bx, p1by, downAx[i], downAy[i])) {
                 p1Score += 100;
-                p1bx = -100;
+                p1bx = -100; 
                 p1by = -100;
-                downAy[i] = -70 - (int) (Math.random() * 300);
-                downAx[i] = (int) (Math.random() * 730);
+                downAy[i] = -70 - (int)(Math.random() * 300);
+                downAx[i] = (int)(Math.random() * 730);
             }
         }
 
-        // P2 bullet vs up asteroids
-        for (int i = 0; i < NUM_ASTEROIDS; i++) {
-            if (bulletHitsAsteroid(p2bx, p2by, upAx[i], upAy[i])) {
+        for (int i = 0; i < activeAsteroids; i++) {
+            if (hitAsteroid(p2bx, p2by, upAx[i], upAy[i])) {
                 p2Score += 100;
                 p2bx = -100;
                 p2by = -100;
-                upAy[i] = 600 + (int) (Math.random() * 300);
-                upAx[i] = (int) (Math.random() * 730);
+                upAy[i] = 600 + (int)(Math.random() * 300);
+                upAx[i] = (int)(Math.random() * 730);
             }
         }
 
-        // down asteroids hitting player 1
-        for (int i = 0; i < NUM_ASTEROIDS; i++) {
+        for (int i = 0; i < activeAsteroids; i++) {
             if (asteroidHitsPlayer(downAx[i], downAy[i], p1x, p1y)) {
                 p1Lives--;
-                downAy[i] = -70 - (int) (Math.random() * 300);
-                downAx[i] = (int) (Math.random() * 730);
+                downAy[i] = -70 - (int)(Math.random() * 300);
+                downAx[i] = (int)(Math.random() * 730);
             }
         }
 
-        // up asteroids hitting player 2
-        for (int i = 0; i < NUM_ASTEROIDS; i++) {
+        for (int i = 0; i < activeAsteroids; i++) {
             if (asteroidHitsPlayer(upAx[i], upAy[i], p2x, p2y)) {
                 p2Lives--;
-                upAy[i] = 600 + (int) (Math.random() * 300);
-                upAx[i] = (int) (Math.random() * 730);
+                upAy[i] = 600 + (int)(Math.random() * 300);
+                upAx[i] = (int)(Math.random() * 730);
             }
         }
 
@@ -236,46 +268,36 @@ public class Game extends JPanel implements KeyListener, ActionListener {
         }
     }
 
-    private boolean bulletHitsAsteroid(int bx, int by, int ax, int ay) {
-        // simple bounding box collision
-        return bx >= ax && bx <= ax + 70 && by >= ay && by <= ay + 70;
+    private boolean hitAsteroid(int bx, int by, int ax, int ay) {
+        return bx >= ax && bx <= ax + 70 &&
+               by >= ay && by <= ay + 70;
     }
 
     private boolean asteroidHitsPlayer(int ax, int ay, int px, int py) {
-        int asteroidCenterX = ax + 35;
-        int asteroidBottomY = ay + 70;
-        int asteroidTopY = ay;
-
-        // vertical overlap near player
-        boolean verticalHit = (py > ay && py < asteroidBottomY) ||
-                              (py < asteroidBottomY && py > asteroidTopY);
-
-        boolean horizontalHit = Math.abs(asteroidCenterX - px) < 40;
-
-        return verticalHit && horizontalHit;
+        int centerX = ax + 35;
+        return Math.abs(centerX - px) < 40 &&
+               py >= ay && py <= ay + 70;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (startScreen) {
-            return;
-        }
+        if (startScreen) return;
 
-        // Player 1 bottom: arrows and shoot with UP
         if (code == KeyEvent.VK_LEFT) p1Left = true;
         if (code == KeyEvent.VK_RIGHT) p1Right = true;
+
         if (code == KeyEvent.VK_UP) {
-            if (p1by <= -30) { // only fire new bullet if old one is gone
+            if (p1by <= -30) {
                 p1bx = p1x;
                 p1by = p1y - 40;
             }
         }
 
-        // Player 2 top: A/D and shoot with W
         if (code == KeyEvent.VK_A) p2Left = true;
         if (code == KeyEvent.VK_D) p2Right = true;
+
         if (code == KeyEvent.VK_W) {
             if (p2by >= 630 || p2by <= -30) {
                 p2bx = p2x;
