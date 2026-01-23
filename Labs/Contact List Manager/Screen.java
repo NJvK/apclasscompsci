@@ -1,5 +1,7 @@
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Screen extends JFrame {
 
@@ -24,43 +26,68 @@ public class Screen extends JFrame {
         myList[9] = new Contact("Olivia", "Kim", "olivia.kim@school.edu");
 
         setTitle("Contact Search");
-        setSize(800, 500);
+        setSize(850, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        setupUI();
-        refreshAllContacts();
+        buildUI();
+        showAllContacts();
+        resultsArea.setText("Search results will show here.\n");
     }
 
-    private void setupUI() {
+    private void buildUI() {
         setLayout(new BorderLayout());
 
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new FlowLayout());
+        JPanel top = new JPanel();
+        top.setLayout(new FlowLayout());
 
-        searchField = new JTextField(20);
+        searchField = new JTextField(18);
 
-        JButton firstNameBtn = new JButton("First Name");
-        JButton lastNameBtn = new JButton("Last Name");
-        JButton usernameBtn = new JButton("Username");
-        JButton domainNameBtn = new JButton("Domain Name");
-        JButton extensionBtn = new JButton("Extension");
+        JButton firstBtn = new JButton("First Name");
+        JButton lastBtn = new JButton("Last Name");
+        JButton userBtn = new JButton("Username");
+        JButton domainBtn = new JButton("Domain Name");
+        JButton extBtn = new JButton("Extension");
 
-        firstNameBtn.addActionListener(e -> searchByType("first"));
-        lastNameBtn.addActionListener(e -> searchByType("last"));
-        usernameBtn.addActionListener(e -> searchByType("username"));
-        domainNameBtn.addActionListener(e -> searchByType("domain"));
-        extensionBtn.addActionListener(e -> searchByType("ext"));
+        firstBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                searchFirstName();
+            }
+        });
 
-        topPanel.add(new JLabel("Search:"));
-        topPanel.add(searchField);
-        topPanel.add(firstNameBtn);
-        topPanel.add(lastNameBtn);
-        topPanel.add(usernameBtn);
-        topPanel.add(domainNameBtn);
-        topPanel.add(extensionBtn);
+        lastBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                searchLastName();
+            }
+        });
 
-        add(topPanel, BorderLayout.NORTH);
+        userBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                searchUsername();
+            }
+        });
+
+        domainBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                searchDomainName();
+            }
+        });
+
+        extBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                searchExtension();
+            }
+        });
+
+        top.add(new JLabel("Search:"));
+        top.add(searchField);
+        top.add(firstBtn);
+        top.add(lastBtn);
+        top.add(userBtn);
+        top.add(domainBtn);
+        top.add(extBtn);
+
+        add(top, BorderLayout.NORTH);
 
         allContactsArea = new JTextArea();
         allContactsArea.setEditable(false);
@@ -68,64 +95,100 @@ public class Screen extends JFrame {
         resultsArea = new JTextArea();
         resultsArea.setEditable(false);
 
-        JPanel centerPanel = new JPanel(new GridLayout(1, 2));
+        JPanel center = new JPanel();
+        center.setLayout(new GridLayout(1, 2));
 
-        JPanel leftPanel = new JPanel(new BorderLayout());
-        leftPanel.add(new JLabel("All Contacts:"), BorderLayout.NORTH);
-        leftPanel.add(new JScrollPane(allContactsArea), BorderLayout.CENTER);
+        JPanel left = new JPanel(new BorderLayout());
+        left.add(new JLabel("All Contacts:"), BorderLayout.NORTH);
+        left.add(new JScrollPane(allContactsArea), BorderLayout.CENTER);
 
-        JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.add(new JLabel("Search Results:"), BorderLayout.NORTH);
-        rightPanel.add(new JScrollPane(resultsArea), BorderLayout.CENTER);
+        JPanel right = new JPanel(new BorderLayout());
+        right.add(new JLabel("Search Results:"), BorderLayout.NORTH);
+        right.add(new JScrollPane(resultsArea), BorderLayout.CENTER);
 
-        centerPanel.add(leftPanel);
-        centerPanel.add(rightPanel);
+        center.add(left);
+        center.add(right);
 
-        add(centerPanel, BorderLayout.CENTER);
+        add(center, BorderLayout.CENTER);
     }
 
-    private void refreshAllContacts() {
-        StringBuilder sb = new StringBuilder();
-        for (Contact c : myList) {
-            sb.append(c.toString()).append("\n");
+    private void showAllContacts() {
+        String text = "";
+        for (int i = 0; i < myList.length; i++) {
+            text += myList[i].toString() + "\n";
         }
-        allContactsArea.setText(sb.toString());
+        allContactsArea.setText(text);
     }
 
-    private void searchByType(String type) {
-        String input = searchField.getText().trim().toLowerCase();
+    private String getSearchText() {
+        return searchField.getText().trim();
+    }
 
-        if (input.length() == 0) {
-            resultsArea.setText("Type something to search.\n");
-            return;
-        }
-
-        StringBuilder results = new StringBuilder();
-
-        for (Contact c : myList) {
-            String value = "";
-
-            if (type.equals("first")) {
-                value = c.getFirstName();
-            } else if (type.equals("last")) {
-                value = c.getLastName();
-            } else if (type.equals("username")) {
-                value = c.getUsername();
-            } else if (type.equals("domain")) {
-                value = c.getDomainName();
-            } else if (type.equals("ext")) {
-                value = c.getDomainExtension();
-            }
-
-            if (value.toLowerCase().equals(input)) {
-                results.append(c.toString()).append("\n");
-            }
-        }
-
-        if (results.length() == 0) {
+    private void showMatches(String matches) {
+        if (matches.length() == 0) {
             resultsArea.setText("No matches found.\n");
         } else {
-            resultsArea.setText(results.toString());
+            resultsArea.setText(matches);
         }
+    }
+
+    private void searchFirstName() {
+        String target = getSearchText();
+        String matches = "";
+
+        for (int i = 0; i < myList.length; i++) {
+            if (myList[i].getFirstName().equalsIgnoreCase(target)) {
+                matches += myList[i].toString() + "\n";
+            }
+        }
+        showMatches(matches);
+    }
+
+    private void searchLastName() {
+        String target = getSearchText();
+        String matches = "";
+
+        for (int i = 0; i < myList.length; i++) {
+            if (myList[i].getLastName().equalsIgnoreCase(target)) {
+                matches += myList[i].toString() + "\n";
+            }
+        }
+        showMatches(matches);
+    }
+
+    private void searchUsername() {
+        String target = getSearchText();
+        String matches = "";
+
+        for (int i = 0; i < myList.length; i++) {
+            if (myList[i].getEmailUsername().equalsIgnoreCase(target)) {
+                matches += myList[i].toString() + "\n";
+            }
+        }
+        showMatches(matches);
+    }
+
+    private void searchDomainName() {
+        String target = getSearchText();
+        String matches = "";
+
+        for (int i = 0; i < myList.length; i++) {
+            if (myList[i].getEmailDomainName().equalsIgnoreCase(target)) {
+                matches += myList[i].toString() + "\n";
+            }
+        }
+        showMatches(matches);
+    }
+
+    private void searchExtension() {
+        String target = getSearchText();
+        String matches = "";
+
+        for (int i = 0; i < myList.length; i++) {
+            if (myList[i].getEmailDomainExtension().equalsIgnoreCase(target)) {
+                matches += myList[i].toString() + "\n";
+            }
+        }
+        showMatches(matches);
     }
 }

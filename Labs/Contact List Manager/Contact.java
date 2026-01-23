@@ -3,9 +3,9 @@ public class Contact {
     private String lastName;
     private String email;
 
-    public Contact(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Contact(String first, String last, String email) {
+        firstName = first;
+        lastName = last;
         this.email = email;
     }
 
@@ -21,29 +21,29 @@ public class Contact {
         return lastName;
     }
 
-    public String getUsername() {
-        int atIndex = email.indexOf('@');
-        if (atIndex == -1) {
+    public String getEmailUsername() {
+        int at = email.indexOf("@");
+        if (at == -1) {
             return "";
         }
-        return email.substring(0, atIndex);
+        return email.substring(0, at);
     }
 
-    public String getDomainName() {
-        int atIndex = email.indexOf('@');
-        int dotIndex = email.indexOf('.', atIndex + 1);
+    public String getEmailDomainName() {
+        int at = email.indexOf("@");
+        int dot = email.indexOf(".", at + 1);
 
-        if (atIndex == -1 || dotIndex == -1) {
+        if (at == -1 || dot == -1) {
             return "";
         }
-        return email.substring(atIndex + 1, dotIndex);
+        return email.substring(at + 1, dot);
     }
 
-    public String getDomainExtension() {
-        int dotIndex = email.lastIndexOf('.');
-        if (dotIndex == -1 || dotIndex == email.length() - 1) {
+    public String getEmailDomainExtension() {
+        int dot = email.lastIndexOf(".");
+        if (dot == -1 || dot == email.length() - 1) {
             return "";
         }
-        return email.substring(dotIndex + 1);
+        return email.substring(dot + 1);
     }
 }
