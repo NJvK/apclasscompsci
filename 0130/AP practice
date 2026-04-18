@@ -1,0 +1,5 @@
+A because they both mean the same thing so it has to be A
+C becasue it will cause only be found in the last index
+B because the method checks one with every other and if it has something in common then it will return true so it will never check the first element in B
+C becasue it sets 0,1,2 to alex then it prints so everything wil be alex
+C becasue if it sees a number out of order then it will put it back in order

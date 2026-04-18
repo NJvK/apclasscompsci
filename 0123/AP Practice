@@ -1,0 +1,4 @@
+C because it says if num is greater than 1 it will subtract 1 and print it out. One will break the loop
+B because its checking if each letter of one and two are the same if it is then it will combind it the the result but if it is not then it will add zero to the result
+D becasue a/b has to be the same as method two
+C becasue it gets set to false then if it works it is true
